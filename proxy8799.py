@@ -61,7 +61,7 @@ class SimpleHTTPProxyHandler(BaseHTTPRequestHandler):
             conn = socket.create_connection(address)
         except socket.error:
             return
-        self.send_response(200, '<font color="blue">DarkPy>')
+        self.send_response(200, '<font color="red">DarkPy</>')
         self.send_header('Connection', 'close')
         self.end_headers()
 
