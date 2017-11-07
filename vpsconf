@@ -12,9 +12,10 @@ echo "falhou"
 exit ##########
 fi
 cat -n /etc/issue |grep 1 |cut -d' ' -f6,7,8 |sed 's/1//' |sed 's/	//' > /etc/so 
-echo -e "\033[1;33m- - - - -> \033[01;34mSeu sistema operacional:\033[0m $(cat /etc/so)"
-os=$(cat /etc/so)
 apt-get install curl -y
+echoecho -e "\033[1;33m- - - - -> \033[01;34mSeu sistema operacional:\033[0m $(cat /etc/so)"
+os=$(cat /etc/so)
+
 ip=$(curl https://api.ipify.org/)
 echo $ip
 clear
