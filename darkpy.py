@@ -19,9 +19,9 @@ import traceback
 import subprocess
 subprocess.call("clear",shell=True)
 
-server = "ipdavps"
+server = "127.0.0.1"
 msg1 = 'PROXY SOCKS #Bolsonaro2018'
-msg2 = 'Erro, Proxy nao eh publico'
+msg2 = 'Proxy Bloqueado'
 class ThreadingHTTPServer(ThreadingMixIn, HTTPServer):
 
     address_family = socket.AF_INET
