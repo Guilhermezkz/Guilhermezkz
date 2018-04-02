@@ -25,7 +25,9 @@ sudo chown www-data:www-data /var/www/proxy/ -R
 sudo apt install composer -y
 sudo mkdir -p /var/www/proxy/
 sudo composer create-project athlon1600/php-proxy-app:dev-master /var/www/proxy/
+sleep 3
 sudo chown www-data:www-data /var/www/proxy/ -R
+sleep 2
 
 echo "server {" >> /etc/nginx/conf.d/web-proxy.conf
 echo "        listen 80;" >> /etc/nginx/conf.d/web-proxy.conf
