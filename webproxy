@@ -6,7 +6,9 @@ echo -e "\033[1;33m #################"
 sleep 3
 
 apt-get update -y
+clear
 apt-get install curl -y
+clear
 
 echo -e "\033[1;31mC A P I T U R A N D O  I P"
 ip=$(curl https://api.ipify.org/)
@@ -14,70 +16,49 @@ echo $ip
 clear
 
 sudo apt install nginx php7.0-fpm php7.0-curl php7.0-mbstring php7.0-xml -y
-clear
 sudo apt install apache2 php7.0 libapache2-mod-php7.0 php7.0-curl php7.0-mbstring php7.0-xml -y
-clear
 wget https://www.php-proxy.com/download/glype-1.4.15.zip
-claer
 sudo apt install unzip -y
-clear
 sudo mkdir -p /var/www/proxy/
-clear
 sudo unzip glype-1.4.15.zip -d /var/www/proxy/
-clear
 sudo chown www-data:www-data /var/www/proxy/ -R
-clear
 sudo apt install composer -y
-clear
 sudo mkdir -p /var/www/proxy/
-clear
 sudo composer create-project athlon1600/php-proxy-app:dev-master /var/www/proxy/
-clear
 sudo chown www-data:www-data /var/www/proxy/ -R
-clear
 
-rm /etc/nginx/conf.d/web-proxy.conf
-clear
-
-echo " server { " >> /etc/nginx/conf.d/web-proxy.conf
-echo "         listen 80; " >> /etc/nginx/conf.d/web-proxy.conf
-echo "         server_name $ip; " >> /etc/nginx/conf.d/web-proxy.conf
-echo "  " >> /etc/nginx/conf.d/web-proxy.conf
-echo "         root /var/www/proxy/; " >> /etc/nginx/conf.d/web-proxy.conf
-echo "         index index.php; " >> /etc/nginx/conf.d/web-proxy.conf
-echo "  " >> /etc/nginx/conf.d/web-proxy.conf
-echo "         location / { " >> /etc/nginx/conf.d/web-proxy.conf
-echo "           try_files $uri $uri/ /index.php; " >> /etc/nginx/conf.d/web-proxy.conf
-echo "        } " >> /etc/nginx/conf.d/web-proxy.conf
+echo "server {" >> /etc/nginx/conf.d/web-proxy.conf
+echo "        listen 80;" >> /etc/nginx/conf.d/web-proxy.conf
+echo "        server_name $ip;" >> /etc/nginx/conf.d/web-proxy.conf
 echo " " >> /etc/nginx/conf.d/web-proxy.conf
-echo "          location ~ \.php$ { " >> /etc/nginx/conf.d/web-proxy.conf
-echo "                 fastcgi_pass unix:/run/php/php7.0-fpm.sock; " >> /etc/nginx/conf.d/web-proxy.conf
-echo "                 fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; " >> /etc/nginx/conf.d/web-proxy.conf
-echo "                 include fastcgi_params; " >> /etc/nginx/conf.d/web-proxy.conf
-echo "                 include snippets/fastcgi-php.conf; " >> /etc/nginx/conf.d/web-proxy.conf
-echo "         } " >> /etc/nginx/conf.d/web-proxy.conf
-echo " } " >> /etc/nginx/conf.d/web-proxy.conf
-
-sudo nginx -t
+echo "        root /var/www/proxy/;" >> /etc/nginx/conf.d/web-proxy.conf
+echo "        index index.php;" >> /etc/nginx/conf.d/web-proxy.conf
+echo " " >> /etc/nginx/conf.d/web-proxy.conf
+echo "        location / {" >> /etc/nginx/conf.d/web-proxy.conf
+echo "          try_files $uri $uri/ /index.php;" >> /etc/nginx/conf.d/web-proxy.conf
+echo "       }" >> /etc/nginx/conf.d/web-proxy.conf
+echo " " >> /etc/nginx/conf.d/web-proxy.conf
+echo "         location ~ \.php$ {" >> /etc/nginx/conf.d/web-proxy.conf
+echo "                fastcgi_pass unix:/run/php/php7.0-fpm.sock;" >> /etc/nginx/conf.d/web-proxy.conf
+echo "                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;" >> /etc/nginx/conf.d/web-proxy.conf
+echo "                include fastcgi_params;" >> /etc/nginx/conf.d/web-proxy.conf
+echo "                include snippets/fastcgi-php.conf;" >> /etc/nginx/conf.d/web-proxy.conf
+echo "        }" >> /etc/nginx/conf.d/web-proxy.conf
+echo "}" >> /etc/nginx/conf.d/web-proxy.conf
 clear
-sudo systemctl reload nginx
-clear
 
-rm /etc/apache2/sites-available/web-proxy.conf
-clear
 
-echo " <VirtualHost *:80> " >> /etc/apache2/sites-available/web-proxy.conf
-echo "         ServerName $ip " >> /etc/apache2/sites-available/web-proxy.conf
-echo "  " >> /etc/apache2/sites-available/web-proxy.conf
-echo "         DocumentRoot /var/www/proxy " >> /etc/apache2/sites-available/web-proxy.conf
-echo "         ErrorLog ${APACHE_LOG_DIR}/proxy.error.log " >> /etc/apache2/sites-available/web-proxy.conf
-echo "         CustomLog ${APACHE_LOG_DIR}/proxy.access.log combined " >> /etc/apache2/sites-available/web-proxy.conf
-echo " </VirtualHost> " >> /etc/apache2/sites-available/web-proxy.conf
+echo "<VirtualHost *:80>" >> /etc/apache2/sites-available/web-proxy.conf
+echo "        ServerName $ip" >> /etc/apache2/sites-available/web-proxy.conf
+echo " " >> /etc/apache2/sites-available/web-proxy.conf
+echo "        DocumentRoot /var/www/proxy" >> /etc/apache2/sites-available/web-proxy.conf
+echo "        ErrorLog ${APACHE_LOG_DIR}/proxy.error.log" >> /etc/apache2/sites-available/web-proxy.conf
+echo "        CustomLog ${APACHE_LOG_DIR}/proxy.access.log combined" >> /etc/apache2/sites-available/web-proxy.conf
+echo "</VirtualHost>" >> /etc/apache2/sites-available/web-proxy.conf
+clear
 
 sudo a2ensite web-proxy.conf
-clear
 sudo systemctl reload apache2
-clear
 
 echo -e "\033[1;33m #################"
 echo -e "\033[1;33m- - - - -> \033[01;34mAgora Acesse pelo navegador com o seu ip $ip e crie um usuario admin com senha forte"
@@ -85,4 +66,3 @@ sleep 3
 echo -e "\033[1;33m DEpois disso execute o outro script e teste navegando"
 sleep 3
 echo -e "\033[1;33m #################"
-sleep 2
