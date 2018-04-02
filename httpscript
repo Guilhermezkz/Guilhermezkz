@@ -1,0 +1,29 @@
+#/bin/bash
+
+echo -e "\033[01;31mEste Script Sera pra criptografa e instalar o https \033[0m"
+sleep 3
+clear
+
+echo -e "Digite um email" ; read email
+clear
+
+sudo apt install software-properties-common -y
+clear
+sudo add-apt-repository ppa:certbot/certbot
+clear
+sudo apt update -y
+clear
+sudo apt install certbot -y
+clear
+sudo apt install python-certbot-nginx -y
+clear
+
+sudo certbot --nginx --agree-tos --redirect --staple-ocsp -d $ip --email $email
+clear
+sudo apt install python-certbot-apache -y
+clear
+sudo certbot --apache --agree-tos --redirect --staple-ocsp -d $ip --email $email
+clear
+
+echo -e "\033[01;31mPronto so testar e nois \033[0m"
+echo -e "\033[01;31m@LindoFuLL \033[0m"
